@@ -45,7 +45,7 @@ Once your container or pod is running, you can get market data by sending GET re
 You can skip the request parameters and specify a default symbol and ndays by setting the SYMBOL and NDAYS environmental variables in the container.
 
 Sample request:
-http://restock:10000?symbol=aapl&ndays=2
+`http://localhost:10000?symbol=aapl&ndays=2`
 
 ## Docker
 
