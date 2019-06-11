@@ -58,9 +58,6 @@ class Restock():
             return jsonify({"Health": "NOT_OK"}), 500
 
 
-def start_service():
-    restock = Restock()
-    return restock.app
-
+app = Restock().app
 if __name__ == "__main__":
-    start_service().run(port = 10000, debug = True) #run directly to run debug mode ON
+    app.run(port = 10000, debug = True) #run directly to run debug mode ON
