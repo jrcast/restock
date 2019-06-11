@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: restock-ingress
+  annotations:
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /
+          backend:
+            serviceName: restock
+            servicePort: 10000
