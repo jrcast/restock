@@ -5,7 +5,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(name='restock',
                  version="0.1.0",
-                 description="restock: quickly request stock information",
+                 description="restock: Simple tool to quickly obtain stock information",
                  author="jrcast",
                  author_email="jrcast@users.noreply.github.com",
                  packages=setuptools.find_packages(),
