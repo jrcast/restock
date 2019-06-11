@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: restock
+spec:
+  replicas: 1
+  minReadySeconds: 10
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0%
+  selector:
+    matchLabels:
+        app: restock
+  template:
+    metadata:
+      labels:
+        app: restock
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: restock
+        image: jrcast/restock
+        command: ["bash", "-c"]
+        args: ["exec gunicorn -w 1 -b 0.0.0.0:10000 'restock.restock:start_service()'"]
+        resources:
+            requests:
+                cpu: 50m
+                memory: 128Mi
+            limits:
+                cpu: 50m
+                memory: 128Mi
+        env:
+        - name: HOME
+          value: /home/root
+          
+        - name: SYMBOL
+          valueFrom:
+            configMapKeyRef:
+              name: restock-cm
+              key: SYMBOL
+
+        - name: NDAYS
+          valueFrom:
+            configMapKeyRef:
+              name: restock-cm
+              key: NDAYS
+              
+        - name: APIKEY
+          valueFrom:
+            secretKeyRef:
+              name: apikey
+              key: apikey
+
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 10000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 1
+
+        ports:
+        - containerPort: 10000
+          name: http
