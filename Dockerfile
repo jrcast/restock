@@ -15,3 +15,4 @@ RUN cd /restock/build \
     && rm -r /restock/build
 
 
+CMD ["gunicorn", "-b", "0.0.0.0:10000", "restock.restock:app"]

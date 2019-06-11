@@ -23,7 +23,7 @@ spec:
       - name: restock
         image: jrcast/restock
         command: ["bash", "-c"]
-        args: ["exec gunicorn -w 1 -b 0.0.0.0:10000 'restock.restock:start_service()'"]
+        args: ["exec gunicorn -w 1 -b 0.0.0.0:10000 'restock.restock:app'"]
         resources:
             requests:
                 cpu: 50m
